@@ -13,15 +13,29 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
+    db = connect()
+    c = db.cursor()
+    c.execute("DELETE FROM matches")
+    db.commit()
+    db.close()
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
-
+    db = connect()
+    c = db.cursor()
+    c.execute("DELETE FROM players")
+    db.commit()
+    db.close()
 
 def countPlayers():
     """Returns the number of players currently registered."""
-
+    db = connect()
+    c = db.cursor()
+    c.execute("SELECT count(*) AS num FROM players")
+    rows = c.fetchall()
+    db.close()
+    return rows[0][0]
 
 def registerPlayer(name):
     """Adds a player to the tournament database.
@@ -32,6 +46,11 @@ def registerPlayer(name):
     Args:
       name: the player's full name (need not be unique).
     """
+    db = connect()
+    c = db.cursor()
+    c.execute("INSERT INTO players (name) VALUES (%s)", (name,))
+    db.commit()
+    db.close()
 
 
 def playerStandings():
@@ -47,6 +66,14 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
+    db = connect()
+    c = db.cursor()
+    c.execute("""SELECT players.name, count(*) as num from
+                 players, matches where players.id = matches.winner
+                 GROUP BY players.name
+                 ORDER BY num DESC""")
+    db.commit()
+    db.close()
 
 
 def reportMatch(winner, loser):
