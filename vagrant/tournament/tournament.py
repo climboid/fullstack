@@ -68,12 +68,16 @@ def playerStandings():
     """
     db = connect()
     c = db.cursor()
-    c.execute("""SELECT players.name, count(*) as num from
-                 players, matches where players.id = matches.winner
-                 GROUP BY players.name
-                 ORDER BY num DESC""")
-    db.commit()
+
+
+    c.execute("""SELECT id, name, 
+                (SELECT count(*) FROM matches WHERE players.id = matches.winner) AS wins,
+                (SELECT count(*) FROM matches WHERE players.id = matches.winner OR players.id = matches.looser) AS matches
+                FROM players
+                ORDER BY wins DESC;""")
+    rows = c.fetchall()
     db.close()
+    return rows
 
 
 def reportMatch(winner, loser):
@@ -83,6 +87,11 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+    db = connect()
+    c = db.cursor()
+    c.execute("INSERT INTO matches (winner, looser) VALUES (%s,%s)",(winner,loser,))
+    db.commit()
+    db.close()
  
  
 def swissPairings():
@@ -100,5 +109,28 @@ def swissPairings():
         id2: the second player's unique id
         name2: the second player's name
     """
+
+    db = connect()
+    c = db.cursor()
+    c.execute("""SELECT players.id, players.name
+                 FROM players, matches
+                 WHERE players.id = matches.winner
+                 ORDER BY matches.winner DESC""")
+    winners = c.fetchall()
+    
+    c.execute("""SELECT players.id, players.name
+                 FROM players, matches
+                 WHERE players.id = matches.looser
+                 ORDER BY matches.looser""")
+    losers = c.fetchall()
+    
+    pairings = []
+    i = 0
+    while i < len(winners):
+        pairings.append((winners[i][0],winners[i][1],winners[i+1][0],winners[i+1][1]))
+        pairings.append((losers[i][0], losers[i][1], losers[i+1][0], losers[i+1][1]))
+        i=i+2
+    db.close()
+    return pairings
 
 
