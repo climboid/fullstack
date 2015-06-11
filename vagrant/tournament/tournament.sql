@@ -6,9 +6,14 @@
 -- You can write comments in this file by starting them with two dashes, like
 -- these lines here.
 
+-- Cretes a table of players which will hold all of the players of the tournament
+-- Each player has an id and a name
 CREATE TABLE players(id SERIAL primary key,
 											name text);
 
+-- Creates a table that holds all the matches that are held. For each match you have
+-- a winner and a user which will contain id corresponding to that person
+-- relating back to the players table
 CREATE TABLE matches (id SERIAL, 
 											winner integer references players(id), 
 											looser integer references players(id));
