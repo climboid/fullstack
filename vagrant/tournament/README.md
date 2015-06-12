@@ -1,3 +1,5 @@
+
+
 # Fullstack Project 2 - Tournament
 
 ## Files
@@ -8,6 +10,7 @@
 ## Requirements
 You will need to have vagrant and virtual box installed, for instructions on vagrant go to [install vagrant](https://www.vagrantup.com/) for instruction on virtual box go to [install virtual box](https://www.virtualbox.org/).
 You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_installation_guides)and [psycopg2](https://pypi.python.org/pypi/psycopg2)
+
 
 ## Steps
 
@@ -20,7 +23,8 @@ You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_install
 7. Create a database ``` create database tournament; ```
 8. Choose that database ``` \c tournament ```
 9. Insert the tables ``` \i tournament.sql```
-10. Run the tests ``` python tournament_test.py```
+10. Exit psql ``` \q ```
+11. Run the tests ``` python tournament_test.py```
 
 You should see the following output <br>
 ```
