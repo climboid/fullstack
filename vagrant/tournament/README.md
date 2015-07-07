@@ -9,7 +9,7 @@
 
 ## Requirements
 You will need to have vagrant and virtual box installed, for instructions on vagrant go to [install vagrant](https://www.vagrantup.com/) for instruction on virtual box go to [install virtual box](https://www.virtualbox.org/).
-You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_installation_guides)and [psycopg2](https://pypi.python.org/pypi/psycopg2)
+You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_installation_guides) and [psycopg2](https://pypi.python.org/pypi/psycopg2)
 
 
 ## Steps
@@ -20,11 +20,9 @@ You will also need [postresql](https://wiki.postgresql.org/wiki/Detailed_install
 4. Log into vagrant ``` vagrant ssh```
 5. CD to the corresponding directory ``` cd /vagrant/tournament ```
 6. Prep commandline to insert queries ``` psql```
-7. Create a database ``` create database tournament; ```
-8. Choose that database ``` \c tournament ```
-9. Insert the tables ``` \i tournament.sql```
-10. Exit psql ``` \q ```
-11. Run the tests ``` python tournament_test.py```
+7. Insert the tables ``` \i tournament.sql```
+8. Exit psql ``` \q ```
+9. Run the tests ``` python tournament_test.py```
 
 You should see the following output <br>
 ```
