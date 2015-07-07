@@ -29,7 +29,7 @@ menuItem2 = MenuItem(name="Veggie Burger", description="Juicy grilled veggie pat
                      price="$7.50", course="Entree", restaurant=restaurant1)
 
 session.add(menuItem2)
-session.commit()
+session.commit()`
 
 
 menuItem1 = MenuItem(name="French Fries", description="with garlic and parmesan",

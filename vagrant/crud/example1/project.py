@@ -13,7 +13,7 @@ session = DBSession()
 
 
 #Making an API Endpoint (GET Request)
-@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+@app.route('/restaurants/<int:restaurant_id>/menu.json')
 def restaurantMenuJSON(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     items = session.query(MenuItem).filter_by( restaurant_id = restaurant.id).all()
